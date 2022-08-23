@@ -19,7 +19,7 @@ export function signin(email: string, password: string): any {
     });
 }
 
-export function signup(email: string, password: string) {
+export function signup(email: string, password: string): any {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential: any) => {
       const user = userCredential.user as any;

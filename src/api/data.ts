@@ -1,7 +1,7 @@
-export async function getMovies() {
+export async function getMovies(term: string, page: number) {
   try {
     const apires = await fetch(
-      `http://www.omdbapi.com/?s=batman&page=1&apikey=e310bcb8`,
+      `http://www.omdbapi.com/?s=${term}&page=${page}&apikey=e310bcb8`,
     );
     const data = await apires.json();
     return data;

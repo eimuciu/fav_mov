@@ -58,7 +58,6 @@ const Login: NextPage = () => {
       } catch (err) {
         console.log('Login failed', err);
         alert('Something went wrong');
-        console.log('Something went wrong', err);
       }
     },
   });

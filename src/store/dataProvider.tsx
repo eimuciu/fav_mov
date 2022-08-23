@@ -8,7 +8,7 @@ interface Props {
   children: JSX.Element;
 }
 
-const initialData: [] = [];
+const initialData: {} = { data: [], total: null };
 
 interface ActionProps {
   type: string;
@@ -18,7 +18,11 @@ interface ActionProps {
 export function reducer(state: any, action: ActionProps) {
   switch (action.type) {
     case 'SET_MOVIES':
-      return [...action.payload];
+      return {
+        ...state,
+        data: action.payload.data,
+        total: action.payload.total,
+      };
 
     default:
       return state;
@@ -32,14 +36,17 @@ function DataProvider({ children }: Props) {
   useEffect(() => {
     if (isUserLoggedIn) {
       const downdata = async () => {
-        const dataresp = await getMovies();
-        dispatch({ type: 'SET_MOVIES', payload: dataresp.Search });
+        const dataresp = await getMovies('lego', 1);
+        dispatch({
+          type: 'SET_MOVIES',
+          payload: { data: dataresp.Search, total: dataresp.totalResults },
+        });
       };
       downdata();
     }
   }, [isUserLoggedIn]);
 
-  const ctx = { data, dispatch };
+  const ctx = { data: data.data, total: data.total, dispatch };
 
   return <DataContext.Provider value={ctx}>{children}</DataContext.Provider>;
 }

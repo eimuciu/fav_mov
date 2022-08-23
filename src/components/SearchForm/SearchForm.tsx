@@ -7,14 +7,18 @@ const formValidation = Yup.object({
   title: Yup.string().trim().required('Required'),
 });
 
-function SearchForm() {
+interface Props {
+  getSearchedMovies: (a: string) => void;
+}
+
+function SearchForm({ getSearchedMovies }: Props) {
   const formik = useFormik({
-    initialValues: { title: '', description: '' },
+    initialValues: { title: '' },
     validationSchema: formValidation,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values, action) => {
-      alert(JSON.stringify(values));
+      getSearchedMovies(values.title);
     },
   });
 

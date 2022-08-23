@@ -48,10 +48,10 @@ const Register: NextPage = () => {
     validateOnChange: false,
     onSubmit: async (values, action) => {
       try {
-        const { token, user } = await signup(values.email, values.password);
-        if (token && user) {
+        const { token } = await signup(values.email, values.password);
+        if (token) {
           action.resetForm();
-          login(token, user);
+          login(token);
           router.push('/');
           return;
         }
