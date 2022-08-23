@@ -11,3 +11,15 @@
   justify-content: center;
   flex-grow: 1;
 }
+
+@media (max-width: 1023px) {
+  .main {
+    width: calc(33.33% - 10px);
+  }
+}
+
+@media (max-width: 767px) {
+  .main {
+    width: calc(50% - 10px);
+  }
+}
