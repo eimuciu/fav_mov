@@ -30,12 +30,16 @@ const Home: NextPage = () => {
 
   const getSearchedMovies = async (term: string) => {
     const moviesData = await getMovies(term, 1);
-    dispatch({
-      type: 'SET_MOVIES',
-      payload: { data: moviesData.Search, total: moviesData.totalResults },
-    });
-    setMovieTitle(term);
-    setPage(1);
+    if (moviesData.Response === 'True') {
+      dispatch({
+        type: 'SET_MOVIES',
+        payload: { data: moviesData.Search, total: moviesData.totalResults },
+      });
+      setMovieTitle(term);
+      setPage(1);
+      return;
+    }
+    alert(moviesData.Error);
   };
 
   const nextPage = async () => {
