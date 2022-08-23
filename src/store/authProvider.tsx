@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
 const AuthContext = createContext({});
 
@@ -6,13 +7,14 @@ interface Props {
   children: JSX.Element;
 }
 
-function AuthProvider({ children }: Props) {
-  const [token, setToken] = useState<string | null>('');
+function loadStorage(): any {
+  if (typeof window !== 'undefined') {
+    return sessionStorage.getItem('tkn');
+  }
+}
 
-  useEffect(() => {
-    const tkn = sessionStorage.getItem('tkn');
-    setToken(tkn);
-  }, []);
+function AuthProvider({ children }: Props) {
+  const [token, setToken] = useState<string | null | undefined>(loadStorage());
 
   const login = (tkn: string) => {
     sessionStorage.setItem('tkn', tkn);
